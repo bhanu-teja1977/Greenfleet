@@ -1,0 +1,13 @@
+fastapi>=0.115,<1
+uvicorn[standard]>=0.30,<1
+httpx>=0.27,<1
+pydantic>=2.9,<3
+numpy>=1.26,<3
+pandas>=2.2,<3
+scikit-learn>=1.5,<2
+joblib>=1.4,<2
+searoute>=1.4,<2
+global-land-mask>=1.0.0,<2
+shapely>=2.0,<3
+pyproj>=3.6,<4
+geopandas>=1.0,<2

@@ -1,0 +1,26 @@
+{
+  "name": "greenfleet-q-frontend",
+  "private": true,
+  "version": "3.0.0",
+  "type": "module",
+  "engines": {
+    "node": ">=20.19.0"
+  },
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@vitejs/plugin-react": "^5.0.2",
+    "axios": "^1.11.0",
+    "leaflet": "^1.9.4",
+    "lucide-react": "^1.43.0",
+    "react": "^19.1.1",
+    "react-dom": "^19.1.1",
+    "react-leaflet": "^5.0.0",
+    "react-router-dom": "^7.18.3",
+    "recharts": "^3.1.2",
+    "vite": "^7.1.3"
+  }
+}

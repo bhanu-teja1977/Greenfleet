@@ -1,0 +1,1 @@
+export default function HotspotDetail({segment}){if(!segment)return null;return <div><b>{segment.penalty.penalty_zone}</b> — score {segment.penalty.environmental_score}</div>}
