@@ -1,45 +1,94 @@
-# GreenFleet-Q — SIH26138
+# GreenFleet-Q
 
 **AI + Quantum-Inspired Green Fleet Decision Support**
 
-GreenFleet-Q is an end-to-end software prototype centered on **fuel consumption prediction and fuel-choice comparison**, with route/environment effects and fleet deployment used as decision factors. It combines a fuel-aware Random Forest model, quantum-inspired optimization, marine/weather data, route alternatives, and cargo allocation.
+## 1. Professional Project Overview
+GreenFleet-Q is an end-to-end software prototype centered on **fuel consumption prediction and fuel-choice comparison**. It leverages machine learning, route/environment effects, and quantum-inspired optimization to assist maritime operators in deploying fleets sustainably. By simulating marine environments, evaluating alternative fuels, and optimally allocating cargo, GreenFleet-Q acts as a comprehensive decision-support system for green maritime logistics.
 
-## What is integrated
+## 2. Problem Statement / Motivation
+The maritime industry faces immense pressure to decarbonize, reduce greenhouse gas (GHG) emissions, and transition toward sustainable alternative fuels. However, predicting fuel consumption across dynamic sea conditions and selecting the most optimal combination of fuel type, vessel speed, and route remains computationally complex. GreenFleet-Q addresses this challenge by providing an intelligent, data-driven prototype to evaluate fuel economics, environmental impacts, and scheduling objectives in a unified dashboard.
 
-1. **Fuel consumption prediction (core)** — Random Forest predicts voyage fuel consumption using vessel type, fuel type, speed, cargo, distance, wave, current and wind features.
-2. **Fuel-type comparison** — all five supported fuels are predicted under the same vessel/cargo/speed/environment and compared by fuel consumed, L/tonne, cost index, operational CO₂ and decision score.
-3. **Port selection** — searchable port dataset with India-first coverage.
-4. **Two candidate routes** — for the SIH Mumbai → Singapore demo, two ocean-side prototype corridors are evaluated; other port pairs receive two geographic prototype alternatives.
-5. **Marine conditions** — Open-Meteo Marine API for wave height/direction/period, ocean currents, sea level and sea-surface temperature.
-6. **Weather conditions** — Open-Meteo Weather API for wind speed/direction, temperature and precipitation.
-7. **Time-aware environmental mapping** — each route waypoint is matched to a forecast hour using cumulative voyage distance and assumed speed.
-8. **Segment heat maps** — switch between fuel-penalty intensity, delay intensity, and a clearly labelled prototype traffic-density proxy.
-9. **ML fuel prediction pipeline** — Random Forest trained on a synthetic, physics-grounded dataset; training code and sample data are included.
-10. **Baseline optimization** — speed-grid search.
-11. **QPSO optimization** — quantum-inspired particle swarm optimization over speed + alternative fuel choice, with environmental/emission/economic weights.
-12. **Route ranking** — both candidates are independently evaluated with marine/weather conditions, baseline, QPSO and fleet allocation; the lowest QPSO objective is recommended.
-13. **Cargo fleet allocation** — divides total cargo across prototype vessel capacities and reports utilization/unused capacity.
-14. **Scenario analysis** — normal, bad-weather, high-fuel-price and emission-sensitive cases re-run through the optimizer.
-15. **Benchmark** — baseline vs QPSO objective comparison.
-16. **Frontend dashboard** — React + Leaflet + Recharts with route cards, heat-map layers, popups, fleet table and comparison charts.
+## 3. Key Features
+- **Predictive ML Modeling**: Accurately estimates voyage fuel consumption using Random Forest.
+- **Alternative Fuel Analysis**: Simultaneous evaluation of traditional and next-generation fuels.
+- **Dynamic Marine & Weather Conditions**: Real-time integration with Open-Meteo for wave, current, and wind data.
+- **QPSO Optimization**: Balances speed, fuel type, and emissions using quantum-inspired techniques.
+- **Cargo Fleet Allocation**: Optimally divides total cargo demand across available vessel capacities.
+- **Scenario Analysis**: Dynamic evaluation of extreme weather, high fuel prices, and emission-sensitive conditions.
+- **Interactive Dashboard**: Modern React-based frontend featuring heat maps, routing layers, and statistical comparisons.
 
-## Folder structure
+## 4. System Architecture / Workflow
+1. **Voyage Inputs**: User selects origin port, destination port, cargo tonnage, and vessel type.
+2. **Route Candidates**: The system generates geographic alternative routes and gathers marine/weather condition forecasts.
+3. **ML Fuel Prediction**: Predicts consumption for each candidate route based on environment and speed.
+4. **Fuel Comparison**: Considers HFO, LNG, Methanol, Hydrogen, and Ammonia.
+5. **Optimization**: A QPSO algorithm evaluates the best speed and fuel mix against baseline strategies.
+6. **Fleet Allocation**: Determines the most efficient fleet makeup to transport the requested cargo.
+7. **Dashboard Visualization**: Results are rendered via interactive heat maps, charts, and metrics.
 
+## 5. Technology Stack
+- **Frontend**: React, Vite, Leaflet (mapping), Recharts (data visualization), Tailwind CSS (styling)
+- **Backend**: FastAPI, Python, Uvicorn
+- **Machine Learning**: Scikit-Learn (Random Forest)
+- **Optimization**: Quantum-Inspired Particle Swarm Optimization (QPSO), NumPy, SciPy
+- **Data Integrations**: Open-Meteo Marine & Weather APIs
+
+## 6. Project Folder Structure
 ```text
-greenfleet/
+Green_Fleet/
 ├── greenfleet-backend/      # FastAPI + weather + environmental model + QPSO + fleet allocation
 ├── greenfleet-frontend/     # React + Leaflet + Recharts dashboard
-├── greenfleet-ml/           # Dataset generation + training code + sample data + Colab notebook
+├── greenfleet-ml/           # Dataset generation + training code + sample data
 ├── greenfleet-optimizer/    # Standalone optimization reference implementation
-├── ports.csv
-├── .gitignore
-└── README.md
+├── ports.csv                # Searchable port dataset
+├── .gitignore               # Ignored files for Git
+└── README.md                # Project documentation
 ```
 
-## Run on Windows
+## 7. How the System Works
+GreenFleet-Q processes voyage inputs and fetches time-aware weather data for the generated route coordinates. This environmental data is fed alongside vessel specifications into the ML pipeline, which outputs the expected fuel consumption for all supported fuels. The optimizer then minimizes a cost function (balancing fuel cost, delay, and emissions) to recommend the most optimal voyage parameters.
 
-### Backend
+## 8. ML Fuel-Consumption Prediction Details
+The core of GreenFleet-Q is a Random Forest model that predicts voyage fuel consumption. It considers the following features:
+- Vessel Type & Cargo
+- Voyage Distance & Speed
+- Wave Height, Wave Direction & Period
+- Ocean Currents
+- Wind Speed & Direction
 
+## 9. Supported Fuel Types
+The platform explicitly compares five fuels under the exact same voyage conditions:
+- **HFO** (Heavy Fuel Oil) - Baseline
+- **LNG** (Liquefied Natural Gas)
+- **Methanol**
+- **Hydrogen**
+- **Ammonia**
+
+## 10. Route/Environment Features
+- **Port Selection**: Searchable port dataset with India-first coverage.
+- **Two Candidate Routes**: For demonstration, port pairs receive two geographic prototype alternatives.
+- **Time-Aware Environmental Mapping**: Each route waypoint is mapped to a forecast hour based on cumulative distance and assumed speed.
+- **Segment Heat Maps**: Visualizes fuel-penalty intensity, delay intensity, and a proxy for traffic density.
+
+## 11. QPSO Optimization Explanation
+Quantum-inspired Particle Swarm Optimization (QPSO) is a classical metaheuristic algorithm used here to optimize the non-linear relationship between vessel speed and fuel choice. By assigning weights to environmental, emission, and economic factors, QPSO efficiently navigates the continuous (speed) and discrete (fuel) search spaces to find a globally optimal configuration, outperforming simple grid search baselines.
+
+## 12. Fleet Allocation
+The system automatically divides the total required cargo tonnage across prototype vessel capacities, calculating fleet utilization metrics, unused capacities, and the necessary number of ships.
+
+## 13. Scenario Analysis
+GreenFleet-Q supports dynamic scenario toggling to observe how optimization behaves under:
+- Normal operations
+- Bad-weather (storms/heavy waves)
+- High-fuel-price shocks
+- Emission-sensitive compliance (strict CO₂ limits)
+
+## 14. Frontend Dashboard
+A modern, responsive single-page application built with React. It includes route cards, dynamic heat-map layers over Leaflet maps, detailed popup analytics, fleet allocation tables, and comprehensive Recharts for comparing baseline vs. QPSO objectives.
+
+## 15. Installation Instructions for Windows
+
+### Backend Setup
 ```powershell
 cd greenfleet-backend
 python -m venv venv
@@ -47,31 +96,19 @@ python -m venv venv
 pip install -r requirements.txt
 uvicorn app.main:app --reload --port 8000
 ```
+Keep this terminal running. The API will be available at `http://127.0.0.1:8000`.
 
-Keep this terminal running.
-
-### Frontend
-
-Open a second terminal. A Python venv is **not required** for npm.
-
+### Frontend Setup
+Open a second terminal:
 ```powershell
 cd greenfleet-frontend
 npm install
 npm run dev
 ```
+Open the Vite URL provided in the terminal, typically `http://localhost:5173`.
 
-Open the Vite URL, normally `http://localhost:5173`.
-
-### Optional ML retraining
-
-The runnable backend already contains a trained Random Forest model at:
-
-```text
-greenfleet-backend/app/ml/fuel_model.pkl
-```
-
-You do **not** need to retrain it to run the demo. If you want to reproduce the training pipeline:
-
+## 16. Optional ML Retraining
+The backend is already equipped with a trained Random Forest model (`fuel_model.pkl`, ~40MB). Retraining is **not required** to run the demo. If you wish to reproduce the ML pipeline:
 ```powershell
 cd greenfleet-ml
 pip install -r requirements.txt
@@ -80,10 +117,13 @@ python train_model.py
 copy fuel_model.pkl ..\greenfleet-backend\app\ml\fuel_model.pkl
 ```
 
-The ML folder intentionally does not duplicate the 39 MB model file; the backend copy is the single runtime artifact.
+## 17. Local Development Instructions
+Ensure both the frontend and backend servers are running concurrently. The Vite development server proxy (`vite.config.js`) handles CORS by forwarding `/api` requests automatically to `http://127.0.0.1:8000`.
 
-## Demo flow
+## 18. API/Backend Information
+The FastAPI application serves endpoints for route evaluation, health checks, and port lookups. Swagger documentation can be accessed by navigating to `http://127.0.0.1:8000/docs` while the backend is running.
 
+## 19. Demo Workflow
 ```text
 Voyage Inputs
    ↓
@@ -100,63 +140,33 @@ Best Route + Fleet Allocation
 Dashboard: Fuel + CO₂ + Cost + ETA + Fleet + Heat Maps + Scenarios
 ```
 
-## GitHub-ready structure
+## 20. Model Information and Prototype Metrics
+The included ML model was trained on 2,500 synthetic/physics-grounded demonstration rows.
+- **R²**: 0.9723
+- **MAE**: 1,870.61 L
+- **RMSE**: 2,582.49 L
+*(Note: These are prototype metrics for demonstration, not validated against real-world vessel telemetry.)*
 
-The repository is intentionally pushable as source code:
+## 21. Important Limitations & Disclaimers
+- **Synthetic/physics-grounded ML dataset**: Not derived from proprietary vessel telemetry.
+- **Prototype geographic routes**: Decision-support prototypes only, not certified sea lanes.
+- **Forecast marine/weather data**: Provided by Open-Meteo; not a substitute for certified navigation information.
+- **Traffic layer is a prototype proxy**: Do not present this as live AIS tracking.
+- **QPSO is quantum-inspired classical optimization**: No actual quantum computer is required.
+- **Not certified navigation software**: The prototype does not claim maritime routing certification or regulatory compliance.
+- **Not live AIS tracking**: Live vessel positions are not utilized.
 
-- `node_modules/`, Python virtual environments, caches and local `.env` files are ignored.
-- The ZIP artifact is not part of the repository.
-- No API key is required by the current prototype.
-- The runtime model is kept under 100 MB so it can be committed to a normal Git repository.
-- If the model is later replaced by a larger artifact, use Git LFS rather than committing files over GitHub's hard file-size limit.
+## 22. Future Improvements / Extension Points
+The modular design allows for significant future enhancements:
+- `route_engine.py` → Integration with commercial routing providers.
+- `marine_api.py` → Additional ocean data providers (e.g., Copernicus).
+- `environmental_model.py` → More complex fuel penalty models.
+- `optimization/optimizer.py` → Expanding the QPSO search spaces.
+- `fleet_optimizer.py` → Mixed-integer optimization for complex fleets.
+- `greenfleet-ml/` → Integration of real telemetry data and advanced neural networks.
 
-Typical first push:
+## 23. GitHub Project Structure
+The repository is intentionally pushable as source code. Unnecessary caches, virtual environments, and `.env` files are ignored via `.gitignore`. The ML runtime model is kept under GitHub's 100 MB hard file-size limit. No API keys are required for the current prototype.
 
-```bash
-git init
-git add .
-git commit -m "Initial GreenFleet-Q prototype"
-git branch -M main
-git remote add origin <YOUR_GITHUB_REPO_URL>
-git push -u origin main
-```
-
-## Core fuel-model story
-
-The main project output is **fuel consumption**, not route drawing. `fuel_type` is an explicit Random Forest input feature alongside vessel type, speed, cargo, distance, wave, current and wind. The backend predicts fuel separately for HFO, LNG, Methanol, Hydrogen and Ammonia under the same voyage conditions.
-
-The dashboard reports:
-- predicted fuel consumed (L)
-- litres per cargo tonne
-- fuel cost index
-- operational CO₂
-- CO₂ reduction vs HFO
-- lowest-consumption fuel
-- lowest-CO₂ fuel
-- best balanced fuel under the current economic/emission/schedule objective
-
-QPSO then searches **speed + fuel choice**. Route selection remains a secondary factor: it changes distance and marine/environmental exposure, while the primary decision is how much fuel is consumed and which fuel is preferable.
-
-The included model was trained on 2,500 synthetic/physics-grounded demonstration rows. Its reported validation metrics are R² 0.9723, MAE 1,870.61 L and RMSE 2,582.49 L. These are prototype metrics, not validation against real vessel telemetry.
-
-## Important presentation notes
-
-- The two routes are **geographic decision-support prototypes**, not certified sea lanes or navigation routes.
-- Open-Meteo marine data is forecast data and is not a substitute for certified navigation information.
-- The ML dataset is **synthetic/physics-grounded**, not proprietary vessel telemetry.
-- QPSO is a **quantum-inspired classical metaheuristic**. No quantum computer is required.
-- The traffic layer is a **prototype traffic-density proxy**, not live AIS traffic. Do not present it as live vessel tracking.
-- Fleet capacities and size factors are **prototype decision-support assumptions**, not vessel-class certification data.
-- The prototype does not claim AIS, live vessel tracking, maritime routing certification, or regulatory compliance.
-
-## Extension points
-
-The code is modular so future features can be added without replacing the core demo:
-
-- `route_engine.py` → more route candidates / routing provider integration
-- `marine_api.py` → additional weather/ocean providers
-- `environmental_model.py` → richer penalty models
-- `optimization/optimizer.py` → larger QPSO search spaces
-- `fleet_optimizer.py` → vessel/fleet mixed-integer optimization
-- `frontend/src/components/MapView.jsx` → additional map layers
-- `greenfleet-ml/` → real telemetry or larger training pipelines
+## 24. Credits / Contributors
+Developed for SIH26138.
