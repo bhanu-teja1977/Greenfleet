@@ -448,3 +448,14 @@ body, .dashboard-shell, .dashboard-main, .dashboard-content, .card, .voyage-form
 
 /* ── Common ── */
 .page-voyage,.page-fuel,.page-routes,.page-opt,.page-scenarios,.page-fleet,.page-ml,.page-settings,.page-overview{display:flex;flex-direction:column;gap:14px}
+
+/* Inject Animated Background */
+body { background: linear-gradient(270deg, #051014, #09202a, #041a1a); background-size: 600% 600%; animation: oceanGradient 16s ease infinite; }
+@keyframes oceanGradient { 0%{background-position:0% 50%} 50%{background-position:100% 50%} 100%{background-position:0% 50%} }
+/* Make Cards Interactive */
+.route-option { transition: all 0.3s ease; }
+.route-option:hover { transform: translateY(-4px); box-shadow: 0 8px 20px rgba(21, 150, 92, 0.2); }
+.fuel-best { transition: all 0.3s ease; }
+.fuel-best:hover { transform: translateY(-4px); box-shadow: 0 8px 20px rgba(119, 214, 163, 0.15); }
+.spec-item { transition: all 0.3s ease; }
+.spec-item:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(119, 214, 163, 0.05); }
