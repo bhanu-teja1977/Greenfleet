@@ -300,7 +300,7 @@ export default function VoyageForm({ onSubmit, loading, initialValues }) {
           readOnly
           disabled
           value={specs?.error ? 'Invalid schedule' : specs?.durationFormatted || 'Calculating…'}
-          style={{ background: '#0a1e28', color: specs?.error ? '#e67373' : '#77d6a3', fontWeight: 600 }}
+          style={{ background: 'var(--bg-secondary)', color: specs?.error ? '#dc2626' : 'var(--accent)', fontWeight: 700, border: '1px solid var(--border-color)' }}
         />
       </div>
 

@@ -4,10 +4,8 @@ import {
   LayoutDashboard, Ship, Droplets, Route, Zap,
   FlaskConical, Boxes, BarChart3, Settings, Menu, X,
   Activity, Cpu, Cloud,
-  Moon, Sun,
 } from 'lucide-react';
 import { useApp } from '../../context/AppContext';
-import { useTheme } from '../../context/ThemeContext';
 
 const NAV = [
   { to: '/dashboard',     label: 'Overview',           icon: LayoutDashboard },
@@ -24,8 +22,6 @@ const NAV = [
 export default function Sidebar() {
   const [open, setOpen] = useState(false);
   const { systemStatus } = useApp();
-  const { theme, toggleTheme } = useTheme();
-  const nextTheme = theme === 'dark' ? 'light' : 'dark';
 
   const content = (
     <aside className={`sidebar ${open ? 'sidebar-open' : ''}`}>
@@ -54,21 +50,6 @@ export default function Sidebar() {
           </NavLink>
         ))}
       </nav>
-
-      <div className="sidebar-appearance">
-        <div className="sidebar-appearance-title">Appearance</div>
-        <button
-          type="button"
-          className="theme-toggle"
-          onClick={toggleTheme}
-          aria-label={`Switch to ${nextTheme} mode`}
-          title={`Switch to ${nextTheme} mode`}
-        >
-          <span className={theme === 'dark' ? 'theme-choice active' : 'theme-choice'}><Moon size={13} /> Dark</span>
-          <span className={`theme-switch ${theme === 'light' ? 'light' : ''}`} aria-hidden="true"><i /></span>
-          <span className={theme === 'light' ? 'theme-choice active' : 'theme-choice'}><Sun size={13} /> Light</span>
-        </button>
-      </div>
 
       {/* System status */}
       <div className="sidebar-status">
