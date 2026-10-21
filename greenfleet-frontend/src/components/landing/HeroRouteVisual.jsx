@@ -5,29 +5,29 @@ import ShipAnimation from './ShipAnimation';
 export default function HeroRouteVisual() {
   return (
     <div className="gfq-hero-stage" aria-label="Maritime vessel and route intelligence visual">
-      {/* Subtle ocean aura & ambient light behind the vessel */}
+      {/* Soft atmospheric ocean glow behind the vessel */}
       <div className="gfq-hero-ocean-aura" aria-hidden="true" />
       <div className="gfq-ship-hull-shadow" aria-hidden="true" />
 
-      {/* SVG Route Visualization — Smooth curved maritime path */}
+      {/* SVG Arched Trajectory matching reference */}
       <svg
         className="gfq-hero-route-svg"
-        viewBox="0 0 720 520"
+        viewBox="0 0 700 480"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
         preserveAspectRatio="none"
         aria-hidden="true"
       >
         <defs>
-          <linearGradient id="routeGradHero" x1="0%" y1="100%" x2="100%" y2="0%">
-            <stop offset="0%" stopColor="#08b887" stopOpacity="0.25" />
-            <stop offset="30%" stopColor="#15c7c4" stopOpacity="0.75" />
+          <linearGradient id="routeArchedGrad" x1="0%" y1="100%" x2="100%" y2="0%">
+            <stop offset="0%" stopColor="#08b887" stopOpacity="0.4" />
+            <stop offset="35%" stopColor="#15c7c4" stopOpacity="0.85" />
             <stop offset="70%" stopColor="#08b887" stopOpacity="0.95" />
-            <stop offset="100%" stopColor="#08b887" stopOpacity="0.85" />
+            <stop offset="100%" stopColor="#08b887" stopOpacity="0.5" />
           </linearGradient>
 
-          <filter id="routeGlowHero" x="-20%" y="-20%" width="140%" height="140%">
-            <feGaussianBlur stdDeviation="3" result="blur" />
+          <filter id="routeGlowRestrained" x="-20%" y="-20%" width="140%" height="140%">
+            <feGaussianBlur stdDeviation="2.5" result="blur" />
             <feMerge>
               <feMergeNode in="blur" />
               <feMergeNode in="SourceGraphic" />
@@ -35,75 +35,58 @@ export default function HeroRouteVisual() {
           </filter>
         </defs>
 
-        {/* Secondary Evaluated Trajectory (dashed cyan curve) */}
+        {/* Secondary subtle dashed line */}
         <path
-          d="M 60 450 C 160 435, 260 380, 360 300 C 460 220, 560 140, 660 55"
+          d="M 50 370 C 190 340, 290 200, 382 170 C 482 140, 572 210, 672 250"
           stroke="#15c7c4"
           strokeWidth="1.6"
           strokeDasharray="5 7"
           strokeOpacity="0.4"
         />
 
-        {/* Primary Recommended Maritime Route (smooth emerald curve) */}
+        {/* Primary Recommended Trajectory (gracefully arching above the ship) */}
         <path
-          d="M 60 440 C 160 420, 270 360, 365 280 C 460 200, 560 120, 660 45"
-          stroke="url(#routeGradHero)"
-          strokeWidth="3.2"
-          filter="url(#routeGlowHero)"
+          d="M 50 360 C 190 320, 285 190, 382 160 C 482 130, 572 200, 672 240"
+          stroke="url(#routeArchedGrad)"
+          strokeWidth="2.8"
+          strokeDasharray="6 7"
+          filter="url(#routeGlowRestrained)"
           className="gfq-svg-route-path"
         />
 
-        {/* Mumbai Origin Node */}
-        <g transform="translate(60, 440)">
+        {/* Node 1: Left */}
+        <g transform="translate(50, 360)">
+          <circle r="4" fill="#08b887" stroke="#ffffff" strokeWidth="2" />
+        </g>
+
+        {/* Node 2: Ascending */}
+        <g transform="translate(190, 295)">
+          <circle r="4" fill="#ffffff" stroke="#08b887" strokeWidth="2" />
+        </g>
+
+        {/* Node 3: Apex above vessel */}
+        <g transform="translate(382, 160)">
+          <circle r="14" stroke="#08b887" strokeWidth="1" opacity="0.3" className="gfq-vessel-ping" />
+          <circle r="5" fill="#ffffff" stroke="#08b887" strokeWidth="2.5" />
+        </g>
+
+        {/* Node 4: Descending */}
+        <g transform="translate(552, 195)">
+          <circle r="4" fill="#ffffff" stroke="#08b887" strokeWidth="2" />
+        </g>
+
+        {/* Node 5: Right */}
+        <g transform="translate(672, 240)">
           <circle r="4.5" fill="#08b887" stroke="#ffffff" strokeWidth="2" />
-          <circle r="9" stroke="#08b887" strokeWidth="1.2" opacity="0.6" className="gfq-radar-pulse" />
-        </g>
-
-        {/* Waypoint 1 */}
-        <g transform="translate(190, 405)">
-          <circle r="3.5" fill="#ffffff" stroke="#08b887" strokeWidth="2" />
-        </g>
-
-        {/* Waypoint 2: Mid-transit corridor point */}
-        <g transform="translate(320, 320)">
-          <circle r="15" stroke="#08b887" strokeWidth="1" opacity="0.3" className="gfq-vessel-ping" />
-          <circle r="4.5" fill="#ffffff" stroke="#08b887" strokeWidth="2.5" />
-        </g>
-
-        {/* Waypoint 3 */}
-        <g transform="translate(450, 215)">
-          <circle r="3.5" fill="#ffffff" stroke="#08b887" strokeWidth="2" />
-        </g>
-
-        {/* Waypoint 4 */}
-        <g transform="translate(560, 125)">
-          <circle r="3.5" fill="#ffffff" stroke="#08b887" strokeWidth="2" />
-        </g>
-
-        {/* Singapore Destination Node */}
-        <g transform="translate(660, 45)">
-          <circle r="5" fill="#08b887" stroke="#ffffff" strokeWidth="2" />
-          <circle r="10" stroke="#08b887" strokeWidth="1.2" opacity="0.7" className="gfq-radar-pulse" />
         </g>
       </svg>
-
-      {/* Origin & Destination Labels */}
-      <div className="gfq-map-port-badge port-mumbai">
-        <MapPin size={11} className="gfq-port-pin" />
-        <span>MUMBAI (INBOM)</span>
-      </div>
-
-      <div className="gfq-map-port-badge port-singapore">
-        <MapPin size={11} className="gfq-port-pin" />
-        <span>SINGAPORE (SGSIN)</span>
-      </div>
 
       {/* Lottie Vector Ship Animation Centerpiece */}
       <div className="gfq-hero-ship-wrapper">
         <ShipAnimation className="gfq-hero-lottie-ship" />
       </div>
 
-      {/* 4 Floating Metric Cards around the vessel */}
+      {/* 4 Floating Metric Cards precisely framing the vessel */}
       <div className="gfq-metric-card card-fuel-efficiency" tabIndex="0">
         <div className="gfq-card-header">
           <div className="gfq-card-icon emerald-icon">

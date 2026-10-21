@@ -369,8 +369,8 @@
 
 .gfq-hero-grid {
   display: grid;
-  grid-template-columns: minmax(0, 480px) minmax(540px, 1fr);
-  gap: 36px;
+  grid-template-columns: minmax(0, 500px) minmax(520px, 1fr);
+  gap: 40px;
   align-items: center;
   width: 100%;
   position: relative;
@@ -384,11 +384,11 @@
 }
 
 .gfq-hero-headline {
-  margin: 10px 0 16px;
-  font-size: clamp(2.6rem, 4.2vw, 4.5rem);
+  margin: 12px 0 18px;
+  font-size: clamp(2.8rem, 4.3vw, 4.6rem);
   line-height: 1.04;
-  letter-spacing: -0.05em;
-  font-weight: 800;
+  letter-spacing: -0.045em;
+  font-weight: 850;
   color: var(--text-primary);
 }
 
@@ -399,10 +399,10 @@
 
 .gfq-hero-lede {
   max-width: 480px;
-  margin: 0 0 24px;
+  margin: 0 0 28px;
   color: var(--text-secondary);
-  font-size: 15px;
-  line-height: 1.62;
+  font-size: 15.5px;
+  line-height: 1.65;
 }
 
 .gfq-hero-actions {
@@ -587,12 +587,13 @@
 .gfq-hero-ship-wrapper {
   position: relative;
   z-index: 3;
-  width: min(100%, 480px);
-  height: 400px;
+  width: min(100%, 460px);
+  height: 390px;
   display: flex;
   align-items: center;
   justify-content: center;
   pointer-events: none;
+  transform: translateX(12px);
 }
 
 .gfq-hero-lottie-ship {
@@ -651,51 +652,18 @@
 }
 
 /* Origin & Destination Port Badges matching reference */
-.gfq-map-port-badge {
-  position: absolute;
-  z-index: 4;
-  display: inline-flex;
-  align-items: center;
-  gap: 5px;
-  background: rgba(255, 255, 255, 0.96);
-  backdrop-filter: blur(10px);
-  border: 1px solid var(--border-subtle);
-  border-radius: var(--radius-full);
-  padding: 4px 12px;
-  font-size: 11px;
-  font-weight: 800;
-  color: var(--text-primary);
-  box-shadow: 0 4px 14px rgba(22, 52, 67, 0.08);
-  letter-spacing: 0.6px;
-}
-
-.gfq-map-port-badge .gfq-port-pin {
-  color: var(--accent-primary);
-}
-
-.port-mumbai {
-  bottom: 8%;
-  left: 5%;
-}
-
-.port-singapore {
-  top: 5%;
-  right: 5%;
-  color: #10212d;
-}
-
 /* Floating White Metric Cards (Glassmorphic White, soft shadows) */
 .gfq-metric-card {
   position: absolute;
   z-index: 4;
-  min-width: 156px;
-  padding: 12px 16px;
-  background: rgba(255, 255, 255, 0.96);
+  min-width: 154px;
+  padding: 13px 18px;
+  background: rgba(255, 255, 255, 0.98);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
-  border: 1px solid rgba(226, 234, 238, 0.9);
+  border: 1px solid rgba(226, 234, 238, 0.95);
   border-radius: 16px;
-  box-shadow: 0 10px 32px rgba(16, 33, 45, 0.08);
+  box-shadow: 0 10px 32px rgba(16, 33, 45, 0.07);
   transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease;
   cursor: default;
 }
@@ -747,7 +715,7 @@
 
 .gfq-card-value {
   font-size: 21px;
-  font-weight: 800;
+  font-weight: 850;
   letter-spacing: -0.04em;
   color: var(--text-primary);
   line-height: 1.1;
@@ -780,25 +748,25 @@
   background: var(--accent-primary);
 }
 
-/* Card positions framing the animated vessel cleanly */
+/* Card positions framing the animated vessel cleanly (Matching reference screenshot) */
 .card-fuel-efficiency {
-  top: 10%;
-  left: 3%;
+  top: 2%;
+  left: -8px;
 }
 
 .card-co2-reduction {
-  top: 14%;
-  right: 2%;
+  top: 6%;
+  right: -8px;
 }
 
 .card-optimal-speed {
-  bottom: 15%;
-  left: 2%;
+  bottom: 5%;
+  left: -14px;
 }
 
 .card-route-candidates {
-  bottom: 9%;
-  right: 3%;
+  bottom: 5%;
+  right: -8px;
 }
 
 /* ==========================================================================
