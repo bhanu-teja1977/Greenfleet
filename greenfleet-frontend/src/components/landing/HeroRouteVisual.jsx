@@ -1,42 +1,33 @@
 import React from 'react';
 import { Leaf, Cloud, Gauge, MapPin } from 'lucide-react';
+import ShipAnimation from './ShipAnimation';
 
 export default function HeroRouteVisual() {
   return (
     <div className="gfq-hero-stage" aria-label="Maritime vessel and route intelligence visual">
-      {/* Container Ship Image & Ocean Backdrop */}
-      <div className="gfq-hero-stage-bg" aria-hidden="true">
-        <img
-          src="/assets/hero-vessel-light.jpg"
-          alt=""
-          className="gfq-stage-ship-img"
-          loading="eager"
-        />
-        {/* Soft edge gradient masks that seamlessly blend into the white page */}
-        <div className="gfq-stage-mask-left" />
-        <div className="gfq-stage-mask-top" />
-        <div className="gfq-stage-mask-bottom" />
-        <div className="gfq-stage-world-map" />
-      </div>
+      {/* Subtle ocean aura & ambient light behind the vessel */}
+      <div className="gfq-hero-ocean-aura" aria-hidden="true" />
+      <div className="gfq-ship-hull-shadow" aria-hidden="true" />
 
-      {/* Glowing SVG Route Overlay spanning the visual stage */}
+      {/* SVG Route Visualization — Smooth curved maritime path */}
       <svg
         className="gfq-hero-route-svg"
         viewBox="0 0 720 520"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
         preserveAspectRatio="none"
+        aria-hidden="true"
       >
         <defs>
-          <linearGradient id="routeGradientLight" x1="0%" y1="100%" x2="100%" y2="0%">
-            <stop offset="0%" stopColor="#08b887" stopOpacity="0.3" />
-            <stop offset="25%" stopColor="#15c7c4" stopOpacity="0.85" />
-            <stop offset="60%" stopColor="#08b887" stopOpacity="1" />
-            <stop offset="100%" stopColor="#08b887" stopOpacity="0.9" />
+          <linearGradient id="routeGradHero" x1="0%" y1="100%" x2="100%" y2="0%">
+            <stop offset="0%" stopColor="#08b887" stopOpacity="0.25" />
+            <stop offset="30%" stopColor="#15c7c4" stopOpacity="0.75" />
+            <stop offset="70%" stopColor="#08b887" stopOpacity="0.95" />
+            <stop offset="100%" stopColor="#08b887" stopOpacity="0.85" />
           </linearGradient>
 
-          <filter id="routeGlowLight" x="-20%" y="-20%" width="140%" height="140%">
-            <feGaussianBlur stdDeviation="3.5" result="blur" />
+          <filter id="routeGlowHero" x="-20%" y="-20%" width="140%" height="140%">
+            <feGaussianBlur stdDeviation="3" result="blur" />
             <feMerge>
               <feMergeNode in="blur" />
               <feMergeNode in="SourceGraphic" />
@@ -44,71 +35,75 @@ export default function HeroRouteVisual() {
           </filter>
         </defs>
 
-        {/* Secondary Evaluated Trajectory (subtle dashed cyan curve) */}
+        {/* Secondary Evaluated Trajectory (dashed cyan curve) */}
         <path
-          d="M 65 445 C 160 430, 270 375, 380 295 C 480 220, 580 135, 650 55"
+          d="M 60 450 C 160 435, 260 380, 360 300 C 460 220, 560 140, 660 55"
           stroke="#15c7c4"
           strokeWidth="1.6"
           strokeDasharray="5 7"
-          strokeOpacity="0.45"
+          strokeOpacity="0.4"
         />
 
-        {/* Primary Recommended Route (glowing emerald/cyan curve) */}
+        {/* Primary Recommended Maritime Route (smooth emerald curve) */}
         <path
-          d="M 65 435 C 160 415, 280 355, 385 275 C 480 200, 580 120, 655 45"
-          stroke="url(#routeGradientLight)"
+          d="M 60 440 C 160 420, 270 360, 365 280 C 460 200, 560 120, 660 45"
+          stroke="url(#routeGradHero)"
           strokeWidth="3.2"
-          filter="url(#routeGlowLight)"
+          filter="url(#routeGlowHero)"
           className="gfq-svg-route-path"
         />
 
-        {/* Node 1: Mumbai Port Origin Node */}
-        <g transform="translate(65, 435)">
+        {/* Mumbai Origin Node */}
+        <g transform="translate(60, 440)">
           <circle r="4.5" fill="#08b887" stroke="#ffffff" strokeWidth="2" />
           <circle r="9" stroke="#08b887" strokeWidth="1.2" opacity="0.6" className="gfq-radar-pulse" />
         </g>
 
-        {/* Node 2: Waypoint before vessel */}
-        <g transform="translate(195, 400)">
-          <circle r="4" fill="#ffffff" stroke="#08b887" strokeWidth="2.5" />
+        {/* Waypoint 1 */}
+        <g transform="translate(190, 405)">
+          <circle r="3.5" fill="#ffffff" stroke="#08b887" strokeWidth="2" />
         </g>
 
-        {/* Node 3: Active waypoint near vessel hull/wake */}
-        <g transform="translate(330, 320)">
-          <circle r="16" stroke="#08b887" strokeWidth="1" opacity="0.35" className="gfq-vessel-ping" />
-          <circle r="5" fill="#ffffff" stroke="#08b887" strokeWidth="2.5" />
+        {/* Waypoint 2: Mid-transit corridor point */}
+        <g transform="translate(320, 320)">
+          <circle r="15" stroke="#08b887" strokeWidth="1" opacity="0.3" className="gfq-vessel-ping" />
+          <circle r="4.5" fill="#ffffff" stroke="#08b887" strokeWidth="2.5" />
         </g>
 
-        {/* Node 4: Wake traverse waypoint */}
-        <g transform="translate(450, 220)">
-          <circle r="4" fill="#ffffff" stroke="#08b887" strokeWidth="2" />
+        {/* Waypoint 3 */}
+        <g transform="translate(450, 215)">
+          <circle r="3.5" fill="#ffffff" stroke="#08b887" strokeWidth="2" />
         </g>
 
-        {/* Node 5: Open ocean waypoint */}
-        <g transform="translate(555, 130)">
-          <circle r="4" fill="#ffffff" stroke="#08b887" strokeWidth="2" />
+        {/* Waypoint 4 */}
+        <g transform="translate(560, 125)">
+          <circle r="3.5" fill="#ffffff" stroke="#08b887" strokeWidth="2" />
         </g>
 
-        {/* Node 6: Singapore Destination Node */}
-        <g transform="translate(655, 45)">
+        {/* Singapore Destination Node */}
+        <g transform="translate(660, 45)">
           <circle r="5" fill="#08b887" stroke="#ffffff" strokeWidth="2" />
           <circle r="10" stroke="#08b887" strokeWidth="1.2" opacity="0.7" className="gfq-radar-pulse" />
         </g>
       </svg>
 
-      {/* Origin Marker Badge: MUMBAI */}
+      {/* Origin & Destination Labels */}
       <div className="gfq-map-port-badge port-mumbai">
-        <MapPin size={12} className="gfq-port-pin" />
-        <span>MUMBAI</span>
+        <MapPin size={11} className="gfq-port-pin" />
+        <span>MUMBAI (INBOM)</span>
       </div>
 
-      {/* Destination Marker Badge: SINGAPORE */}
       <div className="gfq-map-port-badge port-singapore">
-        <MapPin size={12} className="gfq-port-pin" />
-        <span>SINGAPORE</span>
+        <MapPin size={11} className="gfq-port-pin" />
+        <span>SINGAPORE (SGSIN)</span>
       </div>
 
-      {/* 4 Floating Glassmorphic White Metric Cards */}
+      {/* Lottie Vector Ship Animation Centerpiece */}
+      <div className="gfq-hero-ship-wrapper">
+        <ShipAnimation className="gfq-hero-lottie-ship" />
+      </div>
+
+      {/* 4 Floating Metric Cards around the vessel */}
       <div className="gfq-metric-card card-fuel-efficiency" tabIndex="0">
         <div className="gfq-card-header">
           <div className="gfq-card-icon emerald-icon">

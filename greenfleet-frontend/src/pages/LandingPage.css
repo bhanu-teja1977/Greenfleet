@@ -211,11 +211,16 @@
   position: sticky;
   top: 0;
   z-index: 100;
-  background: rgba(255, 255, 255, 0.96);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
+  background: rgba(255, 255, 255, 0.98);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
   border-bottom: 1px solid var(--border-subtle);
-  transition: background-color 0.2s ease, border-color 0.2s ease;
+  transition: all 0.25s ease;
+}
+
+.gfq-nav-wrapper.is-scrolled {
+  box-shadow: 0 4px 20px rgba(16, 33, 45, 0.05);
+  border-bottom-color: rgba(226, 234, 238, 0.95);
 }
 
 .gfq-nav-container {
@@ -233,45 +238,66 @@
 .gfq-brand {
   display: inline-flex;
   align-items: center;
-  gap: 10px;
-  font-weight: 800;
-  font-size: 18px;
-  letter-spacing: -0.02em;
+  gap: 11px;
 }
 
-.gfq-monogram {
+.gfq-monogram-box {
   display: grid;
   place-items: center;
-  width: 32px;
-  height: 32px;
+  width: 34px;
+  height: 34px;
   border: 1.5px solid var(--accent-primary);
-  border-radius: 8px;
-  background: rgba(8, 184, 135, 0.08);
+  border-radius: 9px;
+  background: #ecfdf5;
   color: var(--accent-primary);
-  font-size: 12px;
-  font-weight: 800;
+  flex-shrink: 0;
+  box-shadow: 0 2px 6px rgba(8, 184, 135, 0.15);
+}
+
+.gfq-monogram-text {
+  font-size: 13px;
+  font-weight: 850;
   letter-spacing: -0.5px;
+}
+
+.gfq-brand-col {
+  display: flex;
+  flex-direction: column;
 }
 
 .gfq-brand-name {
   color: var(--text-primary);
+  font-size: 17px;
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
 }
 
 .gfq-brand-suffix {
   color: var(--accent-primary);
 }
 
+.gfq-brand-tagline {
+  font-size: 9.5px;
+  color: var(--text-muted);
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  margin-top: 1px;
+}
+
 /* Nav Links */
 .gfq-nav-links {
   display: flex;
   align-items: center;
-  gap: 36px;
+  gap: 32px;
 }
 
 .gfq-nav-links a {
   color: var(--text-primary);
-  font-size: 14px;
+  font-size: 13.5px;
   font-weight: 600;
+  padding: 6px 4px;
+  position: relative;
   transition: color 0.2s ease;
 }
 
@@ -286,42 +312,24 @@
   gap: 14px;
 }
 
-.gfq-theme-toggle {
-  display: grid;
-  place-items: center;
-  width: 36px;
-  height: 36px;
-  border-radius: var(--radius-full);
-  border: 1px solid var(--border-subtle);
-  background: #ffffff;
-  color: var(--text-secondary);
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-.gfq-theme-toggle:hover {
-  border-color: var(--accent-primary);
-  color: var(--accent-primary);
-}
-
 .gfq-nav-cta {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  padding: 10px 18px;
+  padding: 10px 20px;
   border-radius: var(--radius-full);
   background: var(--accent-primary);
   color: #ffffff !important;
   font-weight: 750;
   font-size: 13px;
-  box-shadow: 0 3px 14px rgba(8, 184, 135, 0.28);
-  transition: all 0.2s ease;
+  box-shadow: 0 3px 12px rgba(8, 184, 135, 0.28);
+  transition: all 0.22s ease;
 }
 
 .gfq-nav-cta:hover {
   background: var(--accent-hover);
   transform: translateY(-1px);
-  box-shadow: 0 6px 20px rgba(8, 184, 135, 0.4);
+  box-shadow: 0 6px 20px rgba(8, 184, 135, 0.38);
 }
 
 .gfq-cta-arrow {
@@ -353,12 +361,10 @@
 .gfq-hero-section {
   position: relative;
   min-height: calc(100vh - 72px);
-  max-height: 860px;
   display: flex;
   align-items: center;
-  padding: 24px 0 clamp(32px, 4vw, 48px);
+  padding: 32px 0 clamp(32px, 4vw, 48px);
   background: transparent;
-  overflow: hidden;
 }
 
 .gfq-hero-grid {
@@ -522,94 +528,84 @@
    ========================================================================== */
 .gfq-hero-visual-col {
   position: relative;
-  height: 560px;
+  height: 540px;
   width: 100%;
-  overflow: visible;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .gfq-hero-stage {
   position: relative;
   width: 100%;
   height: 100%;
-  overflow: visible;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-/* Backdrop Image & Masks inside Stage */
-.gfq-hero-stage-bg {
+/* Ocean ambient light & contact shadow behind vessel */
+.gfq-hero-ocean-aura {
   position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: -60px;
-  overflow: hidden;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -46%);
+  width: min(100%, 640px);
+  height: 440px;
+  background: radial-gradient(
+    ellipse 65% 55% at 50% 55%,
+    rgba(8, 184, 135, 0.09) 0%,
+    rgba(21, 199, 196, 0.05) 35%,
+    rgba(238, 247, 250, 0.4) 60%,
+    transparent 75%
+  );
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.gfq-ship-hull-shadow {
+  position: absolute;
+  bottom: 23%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 320px;
+  height: 18px;
+  background: radial-gradient(
+    ellipse at 50% 50%,
+    rgba(16, 33, 45, 0.13) 0%,
+    rgba(16, 33, 45, 0.04) 50%,
+    transparent 75%
+  );
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 2;
+  filter: blur(3px);
+}
+
+/* Lottie Ship Container */
+.gfq-hero-ship-wrapper {
+  position: relative;
+  z-index: 3;
+  width: min(100%, 480px);
+  height: 400px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   pointer-events: none;
 }
 
-@media (min-width: 1440px) {
-  .gfq-hero-stage-bg {
-    right: calc(-1 * max(0px, (100vw - 1380px) / 2));
-  }
-}
-
-.gfq-stage-ship-img {
-  position: absolute;
-  inset: 0;
+.gfq-hero-lottie-ship {
   width: 100%;
   height: 100%;
-  object-fit: cover;
-  object-position: 72% center;
-  filter: contrast(1.02) saturate(1.06) brightness(1.01);
+  pointer-events: auto;
 }
 
-.gfq-stage-mask-left {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    to right,
-    #ffffff 0%,
-    #ffffff 6%,
-    rgba(255, 255, 255, 0.94) 16%,
-    rgba(255, 255, 255, 0.6) 30%,
-    rgba(255, 255, 255, 0.15) 45%,
-    transparent 60%
-  );
-  pointer-events: none;
-  z-index: 2;
-}
-
-.gfq-stage-mask-top {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 60px;
-  background: linear-gradient(to bottom, #ffffff 0%, rgba(255, 255, 255, 0) 100%);
-  pointer-events: none;
-  z-index: 2;
-}
-
-.gfq-stage-mask-bottom {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 80px;
-  background: linear-gradient(to top, #ffffff 0%, rgba(255, 255, 255, 0.7) 40%, rgba(255, 255, 255, 0) 100%);
-  pointer-events: none;
-  z-index: 2;
-}
-
-.gfq-stage-world-map {
-  position: absolute;
-  top: 6%;
-  right: 4%;
-  width: 340px;
-  height: 220px;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 500' fill='none'%3E%3Cpath d='M600,100 Q650,80 700,95 T770,140 T790,200 T740,260 T670,270 T610,230 Z M650,320 Q690,300 740,330 T770,390 T730,440 T670,410 Z' fill='%23ffffff' fill-opacity='0.16'/%3E%3Cpath d='M500,160 Q530,140 570,170 T610,230 T570,290 T510,270 Z' fill='%23ffffff' fill-opacity='0.12'/%3E%3Cpath d='M400,0 V500 M600,0 V500 M0,200 H800 M0,350 H800' stroke='%23ffffff' stroke-width='0.6' stroke-dasharray='4 8' opacity='0.14'/%3E%3C/svg%3E");
-  background-size: contain;
-  background-repeat: no-repeat;
-  pointer-events: none;
-  z-index: 2;
+.gfq-ship-lottie-container svg {
+  width: 100% !important;
+  height: 100% !important;
+  overflow: visible;
+  filter: drop-shadow(0 14px 28px rgba(16, 33, 45, 0.08));
 }
 
 /* SVG Route Overlay */
@@ -618,7 +614,7 @@
   inset: 0;
   width: 100%;
   height: 100%;
-  z-index: 3;
+  z-index: 2;
   pointer-events: none;
   overflow: visible;
 }
@@ -678,13 +674,13 @@
 }
 
 .port-mumbai {
-  bottom: 12%;
-  left: 7%;
+  bottom: 8%;
+  left: 5%;
 }
 
 .port-singapore {
-  top: 7%;
-  right: 7%;
+  top: 5%;
+  right: 5%;
   color: #10212d;
 }
 
@@ -784,25 +780,25 @@
   background: var(--accent-primary);
 }
 
-/* Card positions matching reference */
+/* Card positions framing the animated vessel cleanly */
 .card-fuel-efficiency {
-  top: 13%;
-  left: 7%;
+  top: 10%;
+  left: 3%;
 }
 
 .card-co2-reduction {
-  top: 24%;
-  right: 4%;
+  top: 14%;
+  right: 2%;
 }
 
 .card-optimal-speed {
-  bottom: 22%;
+  bottom: 15%;
   left: 2%;
 }
 
 .card-route-candidates {
-  bottom: 11%;
-  right: 5%;
+  bottom: 9%;
+  right: 3%;
 }
 
 /* ==========================================================================
@@ -1794,13 +1790,47 @@
    Responsive Adaptations
    ========================================================================== */
 @media (max-width: 1100px) {
-  .gfq-hero-grid {
-    grid-template-columns: 1fr;
-    gap: 40px;
+  .gfq-hero-section {
+    min-height: auto;
+    padding: 32px 0 48px;
   }
 
-  .gfq-hero-visual-frame {
+  .gfq-hero-grid {
+    grid-template-columns: 1fr;
+    gap: 36px;
+  }
+
+  .gfq-hero-copy {
+    text-align: center;
+  }
+
+  .gfq-eyebrow {
+    justify-content: center;
+  }
+
+  .gfq-hero-lede {
+    margin: 0 auto 24px;
+  }
+
+  .gfq-hero-actions {
+    justify-content: center;
+  }
+
+  .gfq-hero-pillars {
+    justify-content: center;
+  }
+
+  .gfq-scroll-cue {
+    display: none;
+  }
+
+  .gfq-hero-visual-col {
     height: 480px;
+  }
+
+  .gfq-hero-ship-wrapper {
+    max-width: 420px;
+    height: 350px;
   }
 
   .gfq-capabilities-grid {
@@ -1886,23 +1916,28 @@
     font-size: clamp(2.6rem, 11vw, 3.8rem);
   }
 
-  .gfq-hero-visual-frame {
-    height: 380px;
+  .gfq-hero-visual-col {
+    height: 420px;
+  }
+
+  .gfq-hero-ship-wrapper {
+    max-width: 360px;
+    height: 300px;
   }
 
   .gfq-metric-card {
-    min-width: 125px;
-    padding: 9px 11px;
+    min-width: 120px;
+    padding: 8px 12px;
   }
 
   .gfq-card-value {
-    font-size: 16px;
+    font-size: 15px;
   }
 
-  .card-fuel-efficiency { top: 6%; left: 4%; }
-  .card-co2-reduction { top: 12%; right: 4%; }
-  .card-optimal-speed { bottom: 6%; left: 4%; }
-  .card-route-candidates { bottom: 10%; right: 4%; }
+  .card-fuel-efficiency { top: 4%; left: 2%; }
+  .card-co2-reduction { top: 8%; right: 2%; }
+  .card-optimal-speed { bottom: 6%; left: 2%; }
+  .card-route-candidates { bottom: 6%; right: 2%; }
 
   .gfq-hero-pillars {
     display: grid;
