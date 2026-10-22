@@ -16,7 +16,6 @@ function StatusRow({ label, ok }) {
 
 export default function Settings() {
   const { systemStatus } = useApp();
-  const { theme, toggleTheme } = useTheme();
 
   return (
     <div className="page-settings">
@@ -30,11 +29,9 @@ export default function Settings() {
         </div>
         <div className="settings-grid">
           <div className="settings-field">
-            <label>Theme</label>
-            <button type="button" className="settings-theme-button" onClick={toggleTheme}>
-              {theme === 'dark' ? 'Dark (Maritime)' : 'Light (Maritime)'}
-            </button>
-            <small>Saved automatically for this browser</small>
+            <label>Interface Theme</label>
+            <input type="text" value="Light (Maritime Standard)" disabled style={{ cursor: 'default' }} />
+            <small>Professional high-contrast light theme active</small>
           </div>
           <div className="settings-field">
             <label>Distance Units</label>

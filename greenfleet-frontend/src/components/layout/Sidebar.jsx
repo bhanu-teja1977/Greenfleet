@@ -3,85 +3,127 @@ import { NavLink, useNavigate } from 'react-router-dom';
 import {
   LayoutDashboard, Ship, Droplets, Route, Zap,
   FlaskConical, Boxes, BarChart3, Settings, Menu, X,
-  Activity, Cpu, Cloud,
-  Moon, Sun,
+  Activity, Cpu, Cloud, LogOut, Sparkles, ArrowRight
 } from 'lucide-react';
 import { useApp } from '../../context/AppContext';
-import { useTheme } from '../../context/ThemeContext';
 
-const NAV = [
+const NAV_MAIN = [
   { to: '/dashboard',     label: 'Overview',           icon: LayoutDashboard },
   { to: '/voyage',        label: 'Voyage Planning',    icon: Ship            },
   { to: '/fuel',          label: 'Fuel Comparison',    icon: Droplets        },
   { to: '/routes',        label: 'Route Analysis',     icon: Route           },
-  { to: '/optimization',  label: 'Optimization',       icon: Zap             },
+];
+
+const NAV_ANALYTICS = [
+  { to: '/optimization',  label: 'QPSO Optimization',  icon: Zap             },
   { to: '/scenarios',     label: 'Scenario Simulation',icon: FlaskConical    },
   { to: '/fleet',         label: 'Fleet Allocation',   icon: Boxes           },
-  { to: '/ml',            label: 'ML Prediction',      icon: BarChart3       },
-  { to: '/settings',      label: 'Settings',           icon: Settings        },
+  { to: '/ml',            label: 'ML Model Insights',  icon: BarChart3       },
 ];
 
 export default function Sidebar() {
   const [open, setOpen] = useState(false);
-  const { systemStatus } = useApp();
-  const { theme, toggleTheme } = useTheme();
-  const nextTheme = theme === 'dark' ? 'light' : 'dark';
+  const navigate = useNavigate();
+  const { systemStatus, resetSession } = useApp();
+
+  const handleLogout = () => {
+    resetSession();
+    navigate('/');
+  };
 
   const content = (
     <aside className={`sidebar ${open ? 'sidebar-open' : ''}`}>
-      {/* Brand */}
+      {/* Brand Header */}
       <div className="sidebar-brand">
         <div className="sidebar-logo">
           <span className="sidebar-logo-gf">GF</span>
         </div>
-        <div>
-          <div className="sidebar-brand-name">GreenFleet</div>
+        <div className="sidebar-brand-text">
+          <div className="sidebar-brand-name">
+            GreenFleet<span className="sidebar-brand-q">-Q</span>
+          </div>
           <div className="sidebar-brand-sub">Maritime Decision Support</div>
         </div>
       </div>
 
-      {/* Nav */}
-      <nav className="sidebar-nav">
-        {NAV.map(({ to, label, icon: Icon }) => (
-          <NavLink
-            key={to}
-            to={to}
-            className={({ isActive }) => `sidebar-link${isActive ? ' active' : ''}`}
-            onClick={() => setOpen(false)}
-          >
-            <Icon size={17} className="sidebar-link-icon" />
-            <span>{label}</span>
-          </NavLink>
-        ))}
-      </nav>
+      {/* Main Nav Section */}
+      <div className="sidebar-scroll-body">
+        <div className="sidebar-group-title">MAIN</div>
+        <nav className="sidebar-nav">
+          {NAV_MAIN.map(({ to, label, icon: Icon }) => (
+            <NavLink
+              key={to}
+              to={to}
+              className={({ isActive }) => `sidebar-link${isActive ? ' active' : ''}`}
+              onClick={() => setOpen(false)}
+            >
+              <Icon size={17} className="sidebar-link-icon" />
+              <span>{label}</span>
+            </NavLink>
+          ))}
+        </nav>
 
-      <div className="sidebar-appearance">
-        <div className="sidebar-appearance-title">Appearance</div>
-        <button
-          type="button"
-          className="theme-toggle"
-          onClick={toggleTheme}
-          aria-label={`Switch to ${nextTheme} mode`}
-          title={`Switch to ${nextTheme} mode`}
-        >
-          <span className={theme === 'dark' ? 'theme-choice active' : 'theme-choice'}><Moon size={13} /> Dark</span>
-          <span className={`theme-switch ${theme === 'light' ? 'light' : ''}`} aria-hidden="true"><i /></span>
-          <span className={theme === 'light' ? 'theme-choice active' : 'theme-choice'}><Sun size={13} /> Light</span>
-        </button>
+        <div className="sidebar-group-title" style={{ marginTop: '16px' }}>INTELLIGENCE &amp; OPTIMIZATION</div>
+        <nav className="sidebar-nav">
+          {NAV_ANALYTICS.map(({ to, label, icon: Icon }) => (
+            <NavLink
+              key={to}
+              to={to}
+              className={({ isActive }) => `sidebar-link${isActive ? ' active' : ''}`}
+              onClick={() => setOpen(false)}
+            >
+              <Icon size={17} className="sidebar-link-icon" />
+              <span>{label}</span>
+            </NavLink>
+          ))}
+        </nav>
+
+        {/* Skillset/AETHER Pro Tier Card */}
+        <div className="sidebar-pro-widget">
+          <div className="spw-badge">
+            <Sparkles size={11} />
+            <span>QUANTUM ENGINE</span>
+          </div>
+          <div className="spw-title">GreenFleet Pro</div>
+          <div className="spw-desc">AI route optimization &amp; CII emission tracking active.</div>
+          <button className="spw-action" onClick={() => { setOpen(false); navigate('/optimization'); }}>
+            <span>Active Tier</span>
+            <ArrowRight size={12} />
+          </button>
+        </div>
       </div>
 
-      {/* System status */}
-      <div className="sidebar-status">
-        <div className="sidebar-status-title">System Status</div>
-        <div className={`sidebar-status-row ${systemStatus.backend ? 'ok' : 'err'}`}>
-          <Activity size={12} /> Backend {systemStatus.backend ? 'Connected' : 'Offline'}
+      {/* Footer Controls & Logout matching reference images */}
+      <div className="sidebar-footer">
+        <NavLink
+          to="/settings"
+          className={({ isActive }) => `sidebar-link${isActive ? ' active' : ''}`}
+          onClick={() => setOpen(false)}
+        >
+          <Settings size={17} className="sidebar-link-icon" />
+          <span>Settings</span>
+        </NavLink>
+
+        {/* System status chips */}
+        <div className="sidebar-status-pill-row">
+          <span className={`status-micro-dot ${systemStatus.backend ? 'ok' : 'err'}`} title="Backend Status" />
+          <span className={`status-micro-dot ${systemStatus.ml ? 'ok' : 'err'}`} title="ML Model" />
+          <span className={`status-micro-dot ${systemStatus.weather ? 'ok' : 'err'}`} title="Weather Data" />
+          <span className="sidebar-status-label">
+            {systemStatus.backend && systemStatus.ml ? 'All Engines Online' : 'Check Diagnostics'}
+          </span>
         </div>
-        <div className={`sidebar-status-row ${systemStatus.ml ? 'ok' : 'err'}`}>
-          <Cpu size={12} /> ML Model {systemStatus.ml ? 'Ready' : 'Offline'}
-        </div>
-        <div className={`sidebar-status-row ${systemStatus.weather ? 'ok' : 'err'}`}>
-          <Cloud size={12} /> Weather Data {systemStatus.weather ? 'Available' : 'Unavailable'}
-        </div>
+
+        {/* Logout Button */}
+        <button
+          type="button"
+          className="sidebar-logout-btn"
+          onClick={handleLogout}
+          title="Sign out and return to landing page"
+        >
+          <LogOut size={16} />
+          <span>Log out</span>
+        </button>
       </div>
     </aside>
   );
