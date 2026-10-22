@@ -22,10 +22,20 @@ from shapely.ops import transform as _transform
 
 _LAND_BUFFER_KM = 2.0
 _PORT_APPROACH_KM = 75.0
-_LAND_DATA = Path(__file__).resolve().parent / 'data' / 'ne_10m_land.geojson'
+_LAND_DATA = Path(__file__).resolve().parent / 'data' / 'ne_110m_land.geojson'
+if not _LAND_DATA.exists():
+    _LAND_DATA = Path(__file__).resolve().parent / 'data' / 'ne_10m_land.geojson'
 _TO_METRES = _Transformer.from_crs('EPSG:4326', 'EPSG:6933', always_xy=True).transform
-_LAND_GEOMETRY = _gpd.read_file(_LAND_DATA).to_crs('EPSG:6933').geometry.unary_union
-_LAND_BUFFER = _LAND_GEOMETRY.buffer(_LAND_BUFFER_KM * 1000)
+_LAND_BUFFER = None
+
+
+def _get_land_buffer():
+    global _LAND_BUFFER
+    if _LAND_BUFFER is None:
+        gdf = _gpd.read_file(_LAND_DATA).to_crs('EPSG:6933')
+        geom = getattr(gdf.geometry, 'union_all', gdf.geometry.unary_union)() if hasattr(gdf.geometry, 'union_all') else gdf.geometry.unary_union
+        _LAND_BUFFER = geom.buffer(_LAND_BUFFER_KM * 1000)
+    return _LAND_BUFFER
 
 
 # ---------------------------------------------------------------------------
@@ -968,7 +978,7 @@ def validate_marine_route(route_geometry, endpoint_tolerance_km=_PORT_APPROACH_K
         elif destination_approach:
             check_segment = _LineString([segment.interpolate(0), segment.interpolate(length - approach_m)])
 
-        intersects_land = check_segment is not None and check_segment.intersects(_LAND_BUFFER)
+        intersects_land = check_segment is not None and check_segment.intersects(_get_land_buffer())
         if intersects_land:
             midpoint = coordinates[index]
             in_suez = 29.0 <= midpoint[1] <= 32.5 and 31.0 <= midpoint[0] <= 33.5
