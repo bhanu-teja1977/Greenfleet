@@ -33,6 +33,9 @@ export default function HeroRouteVisual() {
               <feMergeNode in="SourceGraphic" />
             </feMerge>
           </filter>
+          <filter id="badgeShadow" x="-20%" y="-20%" width="140%" height="140%">
+            <feDropShadow dx="0" dy="2" stdDeviation="3" floodColor="#10212d" floodOpacity="0.08" />
+          </filter>
         </defs>
 
         {/* Secondary subtle dashed line */}
@@ -54,9 +57,14 @@ export default function HeroRouteVisual() {
           className="gfq-svg-route-path"
         />
 
-        {/* Node 1: Left */}
-        <g transform="translate(50, 360)">
-          <circle r="4" fill="#08b887" stroke="#ffffff" strokeWidth="2" />
+        {/* Node 1: Origin (Mumbai) */}
+        <g transform="translate(50, 360)" className="gfq-marker-origin">
+          <circle r="12" fill="#08b887" opacity="0.18" />
+          <circle r="4.5" fill="#08b887" stroke="#ffffff" strokeWidth="2.5" />
+          <g transform="translate(0, -24)">
+            <rect x="-30" y="0" width="60" height="20" rx="6" fill="#ffffff" stroke="#cddde4" strokeWidth="1" filter="url(#badgeShadow)" />
+            <text x="0" y="13.5" textAnchor="middle" fill="#10212d" fontSize="10" fontWeight="700" fontFamily="'Plus Jakarta Sans', sans-serif">Mumbai</text>
+          </g>
         </g>
 
         {/* Node 2: Ascending */}
@@ -75,9 +83,14 @@ export default function HeroRouteVisual() {
           <circle r="4" fill="#ffffff" stroke="#08b887" strokeWidth="2" />
         </g>
 
-        {/* Node 5: Right */}
-        <g transform="translate(672, 240)">
-          <circle r="4.5" fill="#08b887" stroke="#ffffff" strokeWidth="2" />
+        {/* Node 5: Destination (Singapore) */}
+        <g transform="translate(672, 240)" className="gfq-marker-dest">
+          <circle r="12" fill="#08b887" opacity="0.18" />
+          <circle r="4.5" fill="#08b887" stroke="#ffffff" strokeWidth="2.5" />
+          <g transform="translate(0, -24)">
+            <rect x="-35" y="0" width="70" height="20" rx="6" fill="#ffffff" stroke="#cddde4" strokeWidth="1" filter="url(#badgeShadow)" />
+            <text x="0" y="13.5" textAnchor="middle" fill="#10212d" fontSize="10" fontWeight="700" fontFamily="'Plus Jakarta Sans', sans-serif">Singapore</text>
+          </g>
         </g>
       </svg>
 

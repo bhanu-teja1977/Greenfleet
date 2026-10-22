@@ -7,38 +7,52 @@
    ========================================================================== */
 
 :root {
-  /* Core Light Palette */
-  --bg-primary: #ffffff;
-  --bg-secondary: #f7fbfc;
-  --bg-tertiary: #eef7fa;
+  /* Specification Design System Tokens (Section 3 of prompt.md) */
+  --background: #ffffff;
+  --background-soft: #f7fbfc;
+  --background-blue: #eef7fa;
 
-  --surface-primary: #ffffff;
-  --surface-secondary: #f4f8fa;
-  --surface-card: #ffffff;
-  --surface-hover: #edf7f5;
-
-  --accent-primary: #08b887;
-  --accent-hover: #079d74;
-  --accent-cyan: #15c7c4;
-  --accent-blue: #55b8dc;
-  --accent-emerald-glow: rgba(8, 184, 135, 0.22);
-  --accent-cyan-glow: rgba(21, 199, 196, 0.20);
+  --surface: #ffffff;
+  --surface-muted: #f4f8fa;
 
   --text-primary: #10212d;
   --text-secondary: #586b79;
   --text-muted: #80909b;
 
-  --border-subtle: #e2eaee;
-  --border-strong: #cddde4;
-  --border-accent: rgba(8, 184, 135, 0.35);
-  --border-emerald: #08b887;
+  --brand-primary: #08b887;
+  --brand-hover: #079d74;
+  --brand-light: #e5f8f1;
 
-  --shadow-soft: 0 8px 30px rgba(22, 52, 67, 0.06);
-  --shadow-card: 0 12px 36px rgba(22, 52, 67, 0.08);
+  --accent-cyan: #15c7c4;
+
+  --border: #e2eaee;
+  --border-strong: #cddde4;
+
+  --shadow-soft: 0 8px 28px rgba(22, 52, 67, 0.06);
+  --shadow-card: 0 12px 32px rgba(22, 52, 67, 0.08);
 
   --radius-sm: 10px;
-  --radius-md: 14px;
-  --radius-lg: 18px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+
+  --content-width: 1360px;
+
+  /* Theme Aliases */
+  --bg-primary: var(--background);
+  --bg-secondary: var(--background-soft);
+  --bg-tertiary: var(--background-blue);
+  --surface-primary: var(--surface);
+  --surface-secondary: var(--surface-muted);
+  --surface-card: var(--surface);
+  --surface-hover: #edf7f5;
+  --accent-primary: var(--brand-primary);
+  --accent-hover: var(--brand-hover);
+  --accent-blue: #55b8dc;
+  --accent-emerald-glow: rgba(8, 184, 135, 0.22);
+  --accent-cyan-glow: rgba(21, 199, 196, 0.20);
+  --border-subtle: var(--border);
+  --border-accent: rgba(8, 184, 135, 0.35);
+  --border-emerald: var(--brand-primary);
   --radius-xl: 24px;
   --radius-full: 999px;
 }
@@ -71,7 +85,7 @@
 /* Shell / Container */
 .gfq-shell {
   width: 100%;
-  max-width: 1380px;
+  max-width: var(--content-width);
   margin: 0 auto;
   padding: 0 clamp(20px, 4vw, 48px);
 }
@@ -225,8 +239,8 @@
 
 .gfq-nav-container {
   width: 100%;
-  max-width: 1380px;
-  height: 72px;
+  max-width: var(--content-width);
+  height: 70px;
   margin: 0 auto;
   padding: 0 clamp(20px, 4vw, 48px);
   display: flex;
@@ -369,8 +383,8 @@
 
 .gfq-hero-grid {
   display: grid;
-  grid-template-columns: minmax(0, 500px) minmax(520px, 1fr);
-  gap: 40px;
+  grid-template-columns: minmax(0, 44fr) minmax(0, 56fr);
+  gap: clamp(32px, 3.5vw, 56px);
   align-items: center;
   width: 100%;
   position: relative;
@@ -385,10 +399,10 @@
 
 .gfq-hero-headline {
   margin: 12px 0 18px;
-  font-size: clamp(2.8rem, 4.3vw, 4.6rem);
-  line-height: 1.04;
-  letter-spacing: -0.045em;
-  font-weight: 850;
+  font-size: clamp(3rem, 4.4vw, 4.75rem);
+  line-height: 1.05;
+  letter-spacing: -0.04em;
+  font-weight: 800;
   color: var(--text-primary);
 }
 
@@ -398,10 +412,10 @@
 }
 
 .gfq-hero-lede {
-  max-width: 480px;
+  max-width: 490px;
   margin: 0 0 28px;
   color: var(--text-secondary);
-  font-size: 15.5px;
+  font-size: 16px;
   line-height: 1.65;
 }
 
@@ -657,13 +671,13 @@
   position: absolute;
   z-index: 4;
   min-width: 154px;
-  padding: 13px 18px;
+  padding: 12px 18px;
   background: rgba(255, 255, 255, 0.98);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
-  border: 1px solid rgba(226, 234, 238, 0.95);
-  border-radius: 16px;
-  box-shadow: 0 10px 32px rgba(16, 33, 45, 0.07);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-card);
   transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease;
   cursor: default;
 }
@@ -750,23 +764,23 @@
 
 /* Card positions framing the animated vessel cleanly (Matching reference screenshot) */
 .card-fuel-efficiency {
-  top: 2%;
-  left: -8px;
+  top: 1%;
+  left: -4px;
 }
 
 .card-co2-reduction {
-  top: 6%;
-  right: -8px;
+  top: 5%;
+  right: -4px;
 }
 
 .card-optimal-speed {
-  bottom: 5%;
-  left: -14px;
+  bottom: 4%;
+  left: 2px;
 }
 
 .card-route-candidates {
-  bottom: 5%;
-  right: -8px;
+  bottom: 4%;
+  right: -4px;
 }
 
 /* ==========================================================================

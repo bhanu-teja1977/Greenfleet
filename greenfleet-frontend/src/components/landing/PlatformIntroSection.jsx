@@ -25,7 +25,7 @@ export default function PlatformIntroSection() {
           </h2>
 
           <p className="gfq-section-desc">
-            Combine AI, optimization, and real-world marine data to plan safer, cleaner, and more cost-efficient voyages across your entire fleet.
+            Combine AI, optimization, and real-world marine signals to plan safer, cleaner, and more cost-efficient voyages across your entire fleet.
           </p>
 
           <a

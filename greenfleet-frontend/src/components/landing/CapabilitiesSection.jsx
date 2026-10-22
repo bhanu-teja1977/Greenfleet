@@ -6,7 +6,7 @@ const capabilitiesData = [
   {
     id: 'fuel',
     title: 'Fuel Intelligence',
-    desc: 'Predict fuel consumption and compare HFO, LNG, methanol, hydrogen, and ammonia under consistent voyage conditions.',
+    desc: 'Predict fuel consumption and compare supported fuel options under consistent voyage conditions.',
     icon: Leaf,
     colorClass: 'emerald-theme',
     link: '/fuel',
@@ -14,7 +14,7 @@ const capabilitiesData = [
   {
     id: 'routes',
     title: 'Marine Routing',
-    desc: 'Evaluate route alternatives using marine conditions, weather forecasts, and environmental penalties.',
+    desc: 'Evaluate prototype route alternatives using weather, marine conditions, and environmental penalties.',
     icon: Route,
     colorClass: 'cyan-theme',
     link: '/routes',
@@ -22,7 +22,7 @@ const capabilitiesData = [
   {
     id: 'optimization',
     title: 'AI Optimization',
-    desc: 'Use quantum-inspired optimization to balance speed, fuel choice, cost, emissions, and schedule.',
+    desc: 'Evaluate speed and fuel choices using quantum-inspired optimization.',
     icon: Cpu,
     colorClass: 'emerald-theme',
     link: '/optimization',
@@ -30,7 +30,7 @@ const capabilitiesData = [
   {
     id: 'fleet',
     title: 'Fleet Allocation',
-    desc: 'Allocate cargo across prototype vessel capacities to evaluate utilization and operational efficiency.',
+    desc: 'Explore cargo distribution across prototype vessel capacities and understand utilization.',
     icon: Ship,
     colorClass: 'cyan-theme',
     link: '/fleet',
