@@ -291,6 +291,7 @@ While architecting and engineering GreenFleet-Q:
 ## Authors
 
 - [@siddharthg-7](https://github.com/siddharthg-7)
+- [@nprabhu-06](https://github.com/nprabhu-06)
 
 ---
 
